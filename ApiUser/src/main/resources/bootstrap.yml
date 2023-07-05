@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ApiUser
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER:http://localhost:8888}
