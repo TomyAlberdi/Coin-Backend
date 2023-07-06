@@ -11,11 +11,13 @@
         <module name="ConfigServer" />
         <module name="ApiUser" />
         <module name="Gateway" />
+        <module name="ApiList" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApiList" options="-parameters" />
       <module name="ApiUser" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
       <module name="EurekaServer" options="-parameters" />
