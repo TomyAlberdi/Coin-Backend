@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
         <module name="ConfigServer" />
+        <module name="ApiItem" />
         <module name="ApiUser" />
         <module name="Gateway" />
         <module name="ApiList" />
@@ -17,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApiItem" options="-parameters" />
       <module name="ApiList" options="-parameters" />
       <module name="ApiUser" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
