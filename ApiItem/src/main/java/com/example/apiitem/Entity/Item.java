@@ -1,5 +1,6 @@
 package com.example.apiitem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "Item")
 public class Item {
@@ -24,7 +26,6 @@ public class Item {
     @Column(name = "name")
     private String name;
     
-    @NotBlank
     @Column(name = "amount")
     private Double amount;
     

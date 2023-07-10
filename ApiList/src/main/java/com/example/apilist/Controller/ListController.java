@@ -1,5 +1,6 @@
 package com.example.apilist.Controller;
 
+import com.example.apilist.Client.ItemServiceClient;
 import com.example.apilist.Entity.CoinList;
 import com.example.apilist.Service.ListService;
 import jakarta.validation.Valid;
@@ -20,6 +21,8 @@ import java.util.Optional;
 public class ListController {
 
     private final ListService listService;
+
+    private final ItemServiceClient itemServiceClient;
 
     @GetMapping("/{userid}")
     public ResponseEntity<List<CoinList>> list(@PathVariable Long userid) {
@@ -44,6 +47,26 @@ public class ListController {
         } else {
             listService.delete(id);
             return ResponseEntity.ok().body("List with id " + id + " deleted.");
+        }
+    }
+
+    @GetMapping("/{id}/items")
+    public ResponseEntity<?> getItems(@PathVariable Long id) {
+        Optional<CoinList> list = listService.getById(id);
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
+        } else {
+            return ResponseEntity.ok().body(itemServiceClient.getByList(id));
+        }
+    }
+
+    @PostMapping("/{id}/add")
+    public ResponseEntity<?> addItem(@PathVariable Long id, @RequestBody ItemServiceClient.Item item) {
+        Optional<CoinList> list = listService.getById(id);
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
+        } else {
+            return ResponseEntity.ok().body(itemServiceClient.add(item));
         }
     }
 
