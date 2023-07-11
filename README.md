@@ -9,6 +9,7 @@ Coin is a personal back-end microservices project that allows users to track the
   * Create and delete individual items for each list.
   * Assign a cost to each item.
 ### Future Features
+* User security and authentication.
 * Edit lists and items names.
 * Add a description to each list.
 * Change each list currency in real time.
@@ -28,4 +29,7 @@ This project was developed in Java with the Spring Boot and Spring Cloud framewo
   * **GitHub Config**: ![GitHub repository](https://github.com/TomyAlberdi/Coin-Config) that hosts and centralices services configuration for remote access. 
   * **Config Server**: Searches and distributes the configuration to each service.
 * **Eureka Server**: Allows for service discovery. Keeps track of each instance of services.
-* **Gateway**: Provides a central port for all instances of other microservices to be accessed through, and will allow 
+* **Gateway**: Provides a central port for all instances of other microservices to be accessed, and simplifies the implementation of security in the project.
+* **MySQL Database**: Stores and retrieves all system data.
+* **Zipkin**: Allows easy tracking of every request made at the server.
+* **RabbitMQ**: Allows asynchronous messaging between microservices.
