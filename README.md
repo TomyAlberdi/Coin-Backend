@@ -12,7 +12,6 @@ Coin is a personal back-end microservices project that allows users to track the
 * User security and authentication.
 * Edit lists and items names.
 * Add a description to each list.
-* Change each list currency in real time.
 * Give the user the option to view expense lists on a weekly, monthly, or yearly basis.
 * Display summarized information such as total expenses, average spending, and trends for each time period.
 ## Technologies
