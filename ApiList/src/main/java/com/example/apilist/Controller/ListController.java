@@ -22,8 +22,6 @@ public class ListController {
 
     private final ListService listService;
 
-    private final ItemServiceClient itemServiceClient;
-
     @GetMapping("/{userid}")
     public ResponseEntity<List<CoinList>> list(@PathVariable Long userid) {
         return ResponseEntity.ok()
@@ -56,7 +54,7 @@ public class ListController {
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
-            return ResponseEntity.ok().body(itemServiceClient.getByList(id));
+            return ResponseEntity.ok().body(listService.getByList(id));
         }
     }
 
@@ -66,7 +64,7 @@ public class ListController {
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
-            return ResponseEntity.ok().body(itemServiceClient.add(item));
+            return ResponseEntity.ok().body(listService.addItem(item));
         }
     }
 
