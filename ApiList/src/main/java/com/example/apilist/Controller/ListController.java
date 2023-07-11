@@ -54,7 +54,11 @@ public class ListController {
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
-            return ResponseEntity.ok().body(listService.getByList(id));
+            try {
+                return ResponseEntity.ok().body(listService.getByList(id));
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Item Service Unavailable.");
+            }
         }
     }
 
@@ -64,7 +68,12 @@ public class ListController {
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
-            return ResponseEntity.ok().body(listService.addItem(item));
+            item.setList_id(id);
+            try {
+                return ResponseEntity.ok().body(listService.addItem(item));
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Item Service Unavailable.");
+            }
         }
     }
 
