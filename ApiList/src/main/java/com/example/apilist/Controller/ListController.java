@@ -2,6 +2,7 @@ package com.example.apilist.Controller;
 
 import com.example.apilist.Client.ItemServiceClient;
 import com.example.apilist.Entity.CoinList;
+import com.example.apilist.Event.DeleteListEventProducer;
 import com.example.apilist.Service.ListService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class ListController {
 
     private final ListService listService;
+    private final DeleteListEventProducer deleteListEventProducer;
 
     @GetMapping("/{userid}")
     public ResponseEntity<List<CoinList>> list(@PathVariable Long userid) {
@@ -44,6 +46,7 @@ public class ListController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             listService.delete(id);
+            deleteListEventProducer.publishDeleteListEvent(new DeleteListEventProducer.Data(id));
             return ResponseEntity.ok().body("List with id " + id + " deleted.");
         }
     }

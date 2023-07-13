@@ -1,4 +1,4 @@
-package com.example.apilist.Config;
+package com.example.apiitem.Config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -12,11 +12,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
+    
     public static final String EXCHANGE_NAME = "coinExchange";
-    public static final String TOPIC_USER_DELETED = "user.deleted";
     public static final String TOPIC_LIST_DELETED = "list.deleted";
-    public static final String QUEUE_USER_DELETED = "queue.user.deleted";
+    public static final String QUEUE_LIST_DELETED = "queue.list.deleted";
     
     @Bean
     public TopicExchange appExchange() {
@@ -37,12 +36,12 @@ public class RabbitMQConfig {
     
     @Bean
     public Queue queueUserDeleted() {
-        return new Queue(QUEUE_USER_DELETED);
+        return new Queue(QUEUE_LIST_DELETED);
     }
     
     @Bean
     public Binding declareBindingSpecific() {
-        return BindingBuilder.bind(queueUserDeleted()).to(appExchange()).with(TOPIC_USER_DELETED);
+        return BindingBuilder.bind(queueUserDeleted()).to(appExchange()).with(TOPIC_LIST_DELETED);
     }
-
+    
 }
