@@ -1,6 +1,7 @@
 package com.example.apiuser.Controller;
 
 import com.example.apiuser.Entity.User;
+import com.example.apiuser.Event.DeleteUserEventProducer;
 import com.example.apiuser.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final DeleteUserEventProducer deleteUserEventProducer;
 
     @PostMapping("/add")
     public ResponseEntity<?> add(@Valid @RequestBody User user) {
@@ -49,6 +51,7 @@ public class UserController {
                     .body("ID: " + id + " not found");
         } else {
             userService.delete(id);
+            deleteUserEventProducer.publishDeleteUserEvent(new DeleteUserEventProducer.Data(id));
             return ResponseEntity.ok()
                     .body("User with id " + id + " deleted");
         }
