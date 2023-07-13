@@ -18,7 +18,7 @@ public class DeleteListEventConsumer {
     @RabbitListener(queues = RabbitMQConfig.QUEUE_LIST_DELETED)
     public void listen(DeleteListEventConsumer.Data message) {
         System.out.println("Item of list with ID: " + message.list_id + " deleted.");
-        itemRepository.deleteByList(message.list_id);
+        itemRepository.deleteByUser(message.list_id);
     }
     
     @AllArgsConstructor

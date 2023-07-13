@@ -31,6 +31,7 @@ public interface ItemServiceClient {
         private String name;
         private Double amount;
         private Long list_id;
+        private Long user_id;
     }
 
 }

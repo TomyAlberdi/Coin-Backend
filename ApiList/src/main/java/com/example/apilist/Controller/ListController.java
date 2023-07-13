@@ -65,13 +65,12 @@ public class ListController {
         }
     }
 
-    @PostMapping("/{id}/add")
-    public ResponseEntity<?> addItem(@PathVariable Long id, @RequestBody ItemServiceClient.Item item) {
-        Optional<CoinList> list = listService.getById(id);
+    @PostMapping("/addItem")
+    public ResponseEntity<?> addItem(@RequestBody ItemServiceClient.Item item) {
+        Optional<CoinList> list = listService.getById(item.getList_id());
         if (list.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + item.getList_id() + " not found.");
         } else {
-            item.setList_id(id);
             try {
                 return ResponseEntity.ok().body(listService.addItem(item));
             } catch (Exception ex) {

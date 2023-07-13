@@ -14,11 +14,13 @@ import org.springframework.stereotype.Component;
 public class DeleteUserEventConsumer {
 
     private final ListRepository listRepository;
+    private final DeleteListEventProducer deleteListEventProducer;
     
     @RabbitListener(queues = RabbitMQConfig.QUEUE_USER_DELETED)
     public void listen(DeleteUserEventConsumer.Data message) {
         System.out.println("List of user with ID: " + message.user_id + " deleted.");
         listRepository.deleteByUser(message.user_id);
+        deleteListEventProducer.publishDeleteListEvent(new DeleteListEventProducer.Data(message.user_id));
     }
     
     @AllArgsConstructor

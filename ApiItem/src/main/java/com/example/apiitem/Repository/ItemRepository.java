@@ -17,7 +17,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM item i WHERE i.list_id = :listid", nativeQuery = true)
-    public void deleteByList(Long listid);
+    @Query(value = "DELETE FROM item WHERE user_id = :userid", nativeQuery = true)
+    public void deleteByUser(Long userid);
 
 }

@@ -21,7 +21,7 @@ public interface ListRepository extends JpaRepository<CoinList, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM coin_list l WHERE l.user_id = :userid", nativeQuery = true)
+    @Query(value = "DELETE FROM coin_list WHERE user_id = :userid", nativeQuery = true)
     public void deleteByUser(Long userid);
 
 }

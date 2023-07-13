@@ -1,6 +1,5 @@
 package com.example.apiitem.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,5 +31,9 @@ public class Item {
     @NotNull
     @Column(name = "list_id")
     private Long list_id;
+    
+    @NotNull
+    @Column(name = "user_id")
+    private Long user_id;
     
 }
