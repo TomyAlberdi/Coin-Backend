@@ -2,6 +2,7 @@ package com.example.apilist.Controller;
 
 import com.example.apilist.Client.ItemServiceClient;
 import com.example.apilist.Entity.CoinList;
+import com.example.apilist.Entity.CompleteList;
 import com.example.apilist.Event.DeleteListEventProducer;
 import com.example.apilist.Service.ListService;
 import jakarta.validation.Valid;
@@ -34,7 +35,7 @@ public class ListController {
     }
 
     @GetMapping("/{userid}")
-    public ResponseEntity<List<CoinList>> list(@PathVariable Long userid) {
+    public ResponseEntity<List<CompleteList>> list(@PathVariable Long userid) {
         return ResponseEntity.ok()
                 .body(listService.list(userid));
     }
@@ -91,11 +92,7 @@ public class ListController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             try {
-                if (listService.getByList(id).isEmpty()) {
-                    return ResponseEntity.ok().body(0.0);
-                } else {
-                    return ResponseEntity.ok().body(listService.getListTotalAmount(id));
-                }
+                return ResponseEntity.ok().body(listService.getListTotalAmount(id));
             } catch (Exception ex) {
                 return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Item Service Unavailable.");
             }

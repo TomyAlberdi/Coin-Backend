@@ -20,8 +20,14 @@ public class ListService {
     private final ListRepository listRepository;
     private final ItemServiceClient itemServiceClient;
 
-    public List<CoinList> list(Long userid) {
-        return listRepository.findByUser(userid);
+    public List<CompleteList> list(Long userid) {
+        var lists = listRepository.findByUser(userid);
+        var userList = new ArrayList<CompleteList>();
+        for(CoinList i :lists) {
+            var newList = getCompleteList(i.getId());
+            userList.add(newList);
+        }
+        return userList;
     }
 
     public Optional<CoinList> getById(Long id) {

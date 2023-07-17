@@ -22,7 +22,11 @@ public class ItemService {
     }
 
     public Double getListTotalAmount(Long listid) {
-        return itemRepository.getListTotalAmount(listid);
+        if (itemRepository.getListTotalAmount(listid) == null) {
+            return 0.0;
+        } else {
+            return itemRepository.getListTotalAmount(listid);
+        }
     }
 
 }
