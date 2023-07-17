@@ -1,6 +1,8 @@
 package com.example.apilist.Client;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +33,6 @@ public interface ItemServiceClient {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    @JsonIgnoreProperties({"list_id","user_id"})
     public class Item {
         private String name;
         private Double amount;
