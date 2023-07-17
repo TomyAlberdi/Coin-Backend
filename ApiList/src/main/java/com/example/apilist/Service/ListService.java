@@ -2,6 +2,7 @@ package com.example.apilist.Service;
 
 import com.example.apilist.Client.ItemServiceClient;
 import com.example.apilist.Entity.CoinList;
+import com.example.apilist.Entity.CompleteList;
 import com.example.apilist.Repository.ListRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -25,6 +26,14 @@ public class ListService {
 
     public Optional<CoinList> getById(Long id) {
         return listRepository.findById(id);
+    }
+    
+    public CompleteList getCompleteList(Long id) {
+        CompleteList list = new CompleteList();
+        list.setName(listRepository.findById(id).get().getName());
+        list.setTotalAmount(itemServiceClient.getListTotalAmount(id));
+        list.setItems(getByList(id));
+        return list;
     }
 
     public Boolean add(CoinList coinList) {
@@ -66,7 +75,7 @@ public class ListService {
         return itemServiceClient.getListTotalAmount(id);
     }
     
-    public Double getListTotalAmountFallback(Long id) throws Exception {
+    public Double getTotalAmountFallback(Long id) throws Exception {
         throw new Exception();
     }
 

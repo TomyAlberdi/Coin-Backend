@@ -23,6 +23,15 @@ public class ListController {
 
     private final ListService listService;
     private final DeleteListEventProducer deleteListEventProducer;
+    
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getList(@PathVariable Long id) {
+        if (listService.getById(id).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
+        } else {
+            return ResponseEntity.ok().body(listService.getCompleteList(id));
+        }
+    }
 
     @GetMapping("/{userid}")
     public ResponseEntity<List<CoinList>> list(@PathVariable Long userid) {
@@ -41,8 +50,7 @@ public class ListController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Optional<CoinList> list = listService.getById(id);
-        if (list.isEmpty()) {
+        if (listService.getById(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             listService.delete(id);
@@ -53,8 +61,7 @@ public class ListController {
 
     @GetMapping("/{id}/items")
     public ResponseEntity<?> getItems(@PathVariable Long id) {
-        Optional<CoinList> list = listService.getById(id);
-        if (list.isEmpty()) {
+        if (listService.getById(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             try {
@@ -67,8 +74,7 @@ public class ListController {
 
     @PostMapping("/addItem")
     public ResponseEntity<?> addItem(@RequestBody ItemServiceClient.Item item) {
-        Optional<CoinList> list = listService.getById(item.getList_id());
-        if (list.isEmpty()) {
+        if (listService.getById(item.getList_id()).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + item.getList_id() + " not found.");
         } else {
             try {
@@ -81,8 +87,7 @@ public class ListController {
     
     @GetMapping("/getListTotalAmount/{id}")
     public ResponseEntity<?> getTotalAmount(@PathVariable Long id) {
-        Optional<CoinList> list = listService.getById(id);
-        if (list.isEmpty()) {
+        if (listService.getById(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             try {
