@@ -21,5 +21,8 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    public Double getListTotalAmount(Long listid) {
+        return itemRepository.getListTotalAmount(listid);
+    }
 
 }

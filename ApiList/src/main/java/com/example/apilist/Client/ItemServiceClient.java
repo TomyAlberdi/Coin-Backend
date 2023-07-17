@@ -22,6 +22,9 @@ public interface ItemServiceClient {
 
     @PostMapping("/add")
     Item add(@RequestBody Item item);
+    
+    @GetMapping("/getTotalAmount/{id}")
+    Double getListTotalAmount(@PathVariable Long id);
 
     @Getter
     @Setter

@@ -25,5 +25,10 @@ public class ItemController {
     Item add(@RequestBody Item item) {
         return itemService.add(item);
     }
+    
+    @GetMapping("/getTotalAmount/{id}")
+    Double getListTotalAmount(@PathVariable Long id) {
+        return itemService.getListTotalAmount(id);
+    }
 
 }

@@ -19,5 +19,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Modifying
     @Query(value = "DELETE FROM item WHERE user_id = :userid", nativeQuery = true)
     public void deleteByUser(Long userid);
-
+    
+    @Query(value = "SELECT SUM(amount) FROM item WHERE list_id = :listid", nativeQuery = true)
+    public Double getListTotalAmount(Long listid);
+    
 }

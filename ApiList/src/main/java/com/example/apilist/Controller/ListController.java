@@ -78,5 +78,19 @@ public class ListController {
             }
         }
     }
+    
+    @GetMapping("/getListTotalAmount/{id}")
+    public ResponseEntity<?> getTotalAmount(@PathVariable Long id) {
+        Optional<CoinList> list = listService.getById(id);
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
+        } else {
+            try {
+                return ResponseEntity.ok().body(listService.getListTotalAmount(id));
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Item Service Unavailable.");
+            }
+        }
+    }
 
 }

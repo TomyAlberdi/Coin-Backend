@@ -47,7 +47,7 @@ public class ListService {
     }
 
     public List<ItemServiceClient.Item> getByListFallback(Long id, Throwable t) throws Exception {
-        throw new Exception("An error occurred while searching the List.");
+        throw new Exception();
     }
 
     @Retry(name = "retryItem")
@@ -57,7 +57,17 @@ public class ListService {
     }
 
     public ItemServiceClient.Item addItemFallback(ItemServiceClient.Item item) throws Exception {
-        throw new Exception("An error occurred while saving the Item.");
+        throw new Exception();
+    }
+    
+    @Retry(name = "retryItem")
+    @CircuitBreaker(name = "clientItem", fallbackMethod = "getTotalAmountFallback")
+    public Double getListTotalAmount(Long id) {
+        return itemServiceClient.getListTotalAmount(id);
+    }
+    
+    public Double getListTotalAmountFallback(Long id) throws Exception {
+        throw new Exception();
     }
 
 }
