@@ -86,7 +86,11 @@ public class ListController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List with ID: " + id + " not found.");
         } else {
             try {
-                return ResponseEntity.ok().body(listService.getListTotalAmount(id));
+                if (listService.getByList(id).isEmpty()) {
+                    return ResponseEntity.ok().body(0.0);
+                } else {
+                    return ResponseEntity.ok().body(listService.getListTotalAmount(id));
+                }
             } catch (Exception ex) {
                 return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Item Service Unavailable.");
             }
